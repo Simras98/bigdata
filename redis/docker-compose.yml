@@ -1,0 +1,42 @@
+services:
+    master:
+        image: redis:latest
+        command: redis-server --bind 0.0.0.0
+        ports:
+          - 6379:6379
+    slave:
+        image: redis:latest
+        command: redis-server --bind 0.0.0.0 --slaveof master 6379
+        ports:
+          - 6380:6379
+        links:
+            - master
+    sentinel-1:
+        build: sentinel
+        environment:
+            - SENTINEL_DOWN_AFTER=5000
+            - SENTINEL_FAILOVER=500
+            - SENTINEL_QUORUM=2
+        depends_on:
+            - master
+            - slave
+
+    sentinel-2:
+        build: sentinel
+        environment:
+            - SENTINEL_DOWN_AFTER=5000
+            - SENTINEL_FAILOVER=500
+            - SENTINEL_QUORUM=2
+        depends_on:
+            - master
+            - slave
+
+    sentinel-3:
+        build: sentinel
+        environment:
+            - SENTINEL_DOWN_AFTER=5000
+            - SENTINEL_FAILOVER=500
+            - SENTINEL_QUORUM=2
+        depends_on:
+            - master
+            - slave
