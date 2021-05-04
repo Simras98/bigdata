@@ -4,6 +4,7 @@ services:
         command: redis-server --bind 0.0.0.0
         ports:
           - 6379:6379
+
     slave:
         image: redis:latest
         command: redis-server --bind 0.0.0.0 --slaveof master 6379
@@ -11,6 +12,7 @@ services:
           - 6380:6379
         links:
             - master
+
     sentinel-1:
         build: sentinel
         environment:
