@@ -18,7 +18,7 @@ Créer un dossier pour l’application, faites y un git clone du git
 Dans un terminal de commande, dans le sous dossier redis, Faire :
 
 ```bash
-docker-compose up -build -d
+docker-compose up -d
 ```
 
 3. Vérifier l’état des conteneurs, ils doivent tous être en état “Up” :
